@@ -8,4 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'description',
+        'founded',
+        'city_id',
+        'ceo_user_id',
+        'rh_user_id',
+    ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function cities()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(categories::class);
+    }
 }
