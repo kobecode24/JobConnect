@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('job_offer_id')->nullable()->constrained()->onDelete('set null');
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
-            $table->unsignedTinyInteger('status'); // Status codes: 0 (pending), 1 (employed), 2 (HR), 3 (rejected)
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('job_offer_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->enum('status', [0,1])->default(0);
             $table->timestamps();
         });
     }

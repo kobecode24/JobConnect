@@ -17,11 +17,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->text('skills')->nullable();
             $table->text('education')->nullable();
             $table->text('description')->nullable();
             $table->text('experience')->nullable();
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->string('phone')->nullable()->unique();
             $table->timestamps();
         });
     }

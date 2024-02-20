@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->date('founded')->nullable();
-            $table->foreignId('city_id')->nullable()->constrained('cities')->onDelete('set null');
-            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
-            $table->foreignId('ceo_user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->text('description');
+            $table->date('founded');
+            $table->foreignId('city_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('ceo_user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('rh_user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
