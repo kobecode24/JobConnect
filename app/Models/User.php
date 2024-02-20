@@ -52,16 +52,21 @@ class User extends Authenticatable implements HasMedia
 
     public function roles()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsToMany(Role::class);
     }
 
     public function skills()
     {
-        return $this->belongsTo(Skill::class);
+        return $this->belongsToMany(Skill::class);
     }
 
     public function job_offers()
     {
-        return $this->belongsTo(jobOffer::class);
+        return $this->belongsToMany(jobOffer::class);
+    }
+
+    public function companies()
+    {
+        return $this->hasOne(Company::class);
     }
 }
