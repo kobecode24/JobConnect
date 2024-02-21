@@ -24,7 +24,7 @@
             <!-- Row -->
             <div class="w-full xl:w-3/4 lg:w-11/12 flex">
                 <!-- Col -->
-                <div class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg" style="background-image: url('{{ asset("img/background.webp") }}')"></div>
+                <div class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-center  bg-cover rounded-l-lg" style="background-image: url('{{ asset("img/cover-1.webp") }}')"></div>
                 <!-- Col -->
                 <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
                     <h3 class="pt-4 text-2xl text-center">Create an Account!</h3>
@@ -34,7 +34,7 @@
                             <label class="block mb-2 text-sm font-bold text-gray-700" for="name">
                                 Name
                             </label>
-                            <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('name') border-red-500 @enderror" name="name" id="name" type="text" placeholder="name" />
+                            <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('name') border-red-500 @enderror" name="name" id="name" type="text" value="{{old('name')}}" placeholder="name" />
                             @error('name')
                             <span class="text-sm text-red-500">{{ $message }}</span>
                             @enderror
@@ -43,7 +43,7 @@
                             <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
                                 Email
                             </label>
-                            <input name="email" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('email') border-red-500 @enderror" id="email" type="email" placeholder="Email" />
+                            <input name="email" class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('email') border-red-500 @enderror" id="email" type="email" value="{{old('email')}}" placeholder="Email" />
                             @error('email')
                             <span class="text-sm text-red-500">{{ $message }}</span>
                             @enderror
@@ -52,7 +52,7 @@
                             <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
                                 Password
                             </label>
-                            <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('password') border-red-500 @enderror" id="password" type="password" name="password" placeholder="******************" />
+                            <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline @error('password') border-red-500 @enderror" id="password" type="password" name="password" value="{{old('password')}}" placeholder="******************" />
                             @error('password')
                             <span class="text-sm text-red-500">{{ $message }}</span>
                             @enderror
