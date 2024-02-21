@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,5 +36,5 @@ Route::middleware(['auth', 'dashboard'])->group(function () {
 
     Route::resource('users', UserController::class);
 
-    Route::get('/profile', [App\Http\Controllers\AuthController::class, 'profile'])->name('profile');
+    Route::get('/profile', [App\Http\Controllers\auth\AuthController::class, 'profile'])->name('profile');
 });
