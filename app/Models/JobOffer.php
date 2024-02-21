@@ -14,6 +14,7 @@ class JobOffer extends Model
         'description',
         'salary',
         'deadline',
+        'created_by_user_id',
     ];
 
 
@@ -28,5 +29,10 @@ class JobOffer extends Model
     public function applications()
     {
         return $this->hasMany(Application::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by_user_id');
     }
 }
