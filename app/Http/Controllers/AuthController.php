@@ -21,10 +21,9 @@ class AuthController extends Controller
     public function registerSave(StoreRegisterRequest $request)
     {
         $user = User::create([
-            'username' => $request->username,
+            'name' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'level' => 'Admin'
         ]);
 
         $user->roles()->attach([1]);

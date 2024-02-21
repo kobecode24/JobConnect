@@ -30,6 +30,6 @@ class Company extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(categories::class);
+        return $this->belongsToMany(Category::class);
     }
 }

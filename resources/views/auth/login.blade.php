@@ -23,7 +23,7 @@
             <!-- Row -->
             <div class="w-full xl:w-3/4 lg:w-11/12 flex">
                 <!-- Col -->
-                <div class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg" style="background-image: url('{{ asset("img/background.webp") }}')"></div>
+                <div class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-center  bg-cover rounded-l-lg" style="background-image: url('{{ asset("img/cover-1.webp") }}')"></div>
                 <!-- Col -->
                 <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
                     <h3 class="pt-4 text-2xl text-center">Welcome Back!</h3>
