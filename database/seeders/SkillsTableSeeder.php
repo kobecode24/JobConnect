@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Skill;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -142,5 +143,10 @@ class SkillsTableSeeder extends Seeder
             'Active Listening',
             'Networking',
             ];
+        foreach ($skills as $skill) {
+            Skill::create([
+                'name' => $skill,
+            ]);
+        }
     }
 }
