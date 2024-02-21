@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('job_offer_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('status', [0,1])->default(0);
+            $table->enum('status', [0,1,2])->default(0);
             $table->timestamps();
         });
     }
