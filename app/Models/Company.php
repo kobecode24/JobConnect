@@ -20,7 +20,7 @@ class Company extends Model
 
     public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function cities()
@@ -31,5 +31,13 @@ class Company extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function ceo() {
+        return $this->belongsTo(User::class, 'ceo_user_id');
+    }
+
+    public function hrManager() {
+        return $this->belongsTo(User::class, 'rh_user_id');
     }
 }
