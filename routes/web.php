@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\CityController;
+use App\Http\Controllers\admin\SkillController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -38,3 +41,37 @@ Route::middleware(['auth', 'dashboard'])->group(function () {
 
     Route::get('/profile', [App\Http\Controllers\auth\AuthController::class, 'profile'])->name('profile');
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::resource('categories', CategoryController::class);
+Route::resource('cities', CityController::class);
+Route::resource('skills', SkillController::class);
+

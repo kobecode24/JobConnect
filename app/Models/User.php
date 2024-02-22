@@ -65,9 +65,21 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsToMany(jobOffer::class);
     }
 
-    public function companies()
+    public function company()
     {
-        return $this->hasOne(Company::class);
+        return $this->belongsTo(Company::class);
+    }
+
+    public function applications() {
+        return $this->hasMany(Application::class);
+    }
+
+    public function managedCompanyAsCeo() {
+        return $this->hasOne(Company::class, 'ceo_user_id');
+    }
+
+    public function managedCompanyAsHr() {
+        return $this->hasOne(Company::class, 'rh_user_id');
     }
 
     public function managedCompany()
