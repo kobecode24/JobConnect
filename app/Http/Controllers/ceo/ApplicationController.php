@@ -39,7 +39,7 @@ class ApplicationController extends Controller
      */
     public function update(UpdateApplicationRequest $request)
     {
-        $application = Application::findOrFail($request);
+        $application = Application::findOrFail($request->id);
 
         $application->update($request->validated());
 
