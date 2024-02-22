@@ -69,4 +69,14 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasOne(Company::class);
     }
+
+    public function managedCompany()
+    {
+        return $this->hasOne(Company::class, 'ceo_user_id');
+    }
+
+    public function rhManagedCompany()
+    {
+        return $this->hasOne(Company::class, 'rh_user_id');
+    }
 }

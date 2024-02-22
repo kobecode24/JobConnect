@@ -5,9 +5,12 @@ namespace App\Http\Controllers\ceo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreHrRequest;
 use App\Http\Requests\UpdateHrRequest;
+use App\Models\Company;
+use App\Models\Role;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class CeoController extends Controller
 {
@@ -18,11 +21,12 @@ class CeoController extends Controller
     public function index()
     {
 
-        $hrs = User::whereHas('roles', function ($query) {
-            $query->where('name', 'HR');
-        })->latest()->get();
+        $ceoId = Auth::user()->id;
+        $company = Company::where('ceo_user_id', $ceoId)->first();
 
-        return view('ceo.hrs.index', compact('hrs'));
+        if ($company) $hr = $company->hr;
+
+        return view('ceo.hrs.index', compact('hr'));
     }
 
     /**
@@ -41,7 +45,7 @@ class CeoController extends Controller
     public function store(StoreHrRequest $request)
     {
 
-        $hr = User::create($request->all());
+        $hr = User::create($request->validated());
 
         $hr->roles()->attach($request->role_id);
         $hr->skills()->sync($request->input($request->skill_id, []));
@@ -95,6 +99,6 @@ class CeoController extends Controller
 
         $hr->delete();
 
-        return redirect()->route('ceo')->with('success', 'HR deleted successfully');
+        return redirect()->route('hrs')->with('success', 'HR deleted successfully');
     }
 }

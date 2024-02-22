@@ -18,7 +18,7 @@ class CeoController extends Controller
     public function show(Request $request)
     {
         $ceo = User::findOrFail($request);
-        $skills = Skill::orderBy('created_at', 'DESC')->get();
+        $skills = $ceo->skills->pluck('name')->toArray();
 
         return view('ceo.show', compact('ceo', 'skills'));
     }
