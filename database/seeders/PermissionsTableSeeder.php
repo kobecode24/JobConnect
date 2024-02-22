@@ -15,33 +15,35 @@ class PermissionsTableSeeder extends Seeder
     {
         $permissions = [
             'job_offer_access',
-            'job_offer_edit',
+            'job_offer_update',
             'job_offer_delete',
             'job_offer_create',
-            'job_offer_apply',
+
+            'update_apply',
+            'delete_apply',
 
             'company_access',
-            'company_edit',
+            'company_update',
             'company_delete',
             'company_create',
 
             'skill_access',
-            'skill_edit',
+            'skill_update',
             'skill_delete',
             'skill_create',
 
             'category_access',
-            'category_edit',
+            'category_update',
             'category_delete',
             'category_create',
 
             'city_access',
-            'city_edit',
+            'city_update',
             'city_delete',
             'city_create',
 
             'user_access',
-            'user_edit',
+            'user_update',
             'user_delete',
             'user_create',
         ];
