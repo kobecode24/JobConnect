@@ -6,13 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreHrRequest;
 use App\Http\Requests\UpdateHrRequest;
 use App\Models\Company;
-use App\Models\Role;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class CeoController extends Controller
+class HrController extends Controller
 {
 
     /**

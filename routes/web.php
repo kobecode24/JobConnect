@@ -4,7 +4,9 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CityController;
 use App\Http\Controllers\admin\SkillController;
 use App\Http\Controllers\auth\AuthController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ceo\CeoController;
+use App\Http\Controllers\ceo\HrController;
+use App\Http\Controllers\user\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
