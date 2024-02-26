@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CityController;
 use App\Http\Controllers\admin\SkillController;
+use App\Http\Controllers\admin\UserController as AdminUserController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\ceo\CeoController;
 use App\Http\Controllers\ceo\HrController;
@@ -34,11 +35,11 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('logout', 'logout')->middleware('auth')->name('logout');
 });
 
-Route::middleware(['auth', 'dashboard'])->group(function () {
-    Route::get('dashboard', function () {
-        return view('dashboard.index');
-    })->name('dashboard');
+// Route::resource('dashboard', AdminUserController::class);
 
+Route::middleware(['auth', 'dashboard'])->group(function () {
+
+    Route::resource('dashboard', AdminUserController::class);
     Route::resource('users', UserController::class);
 
     Route::get('/profile', [App\Http\Controllers\auth\AuthController::class, 'profile'])->name('profile');
@@ -72,8 +73,6 @@ Route::middleware(['auth', 'dashboard'])->group(function () {
 
 
 
-
 Route::resource('categories', CategoryController::class);
 Route::resource('cities', CityController::class);
 Route::resource('skills', SkillController::class);
-
