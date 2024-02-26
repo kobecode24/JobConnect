@@ -47,10 +47,9 @@ class AuthController extends Controller
         $user = Auth::user();
         $userRole = $user->roles->first()->name;
 
-        $dashboardRoles = ['admin', 'CEO', 'HR'];
+        $dashboardRoles = ['Admin', 'CEO', 'HR'];
 
-        $redirectRoute = in_array($userRole, $dashboardRoles) ? 'dashboard' : 'home';
-
+        $redirectRoute = in_array($userRole, $dashboardRoles) ? 'dashboard.index' : 'home.index';
         return redirect()->route($redirectRoute);
     }
 

@@ -17,8 +17,7 @@ class DashboardMiddleware
     {
         $userRole = auth()->user()->roles->first()->name;
 
-        $dashboardRoles = ['admin', 'CEO', 'HR'];
-
+        $dashboardRoles = ['Admin', 'CEO', 'HR'];
         if (auth()->check() && in_array($userRole, $dashboardRoles)) {
             return $next($request);
         }
