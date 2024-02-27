@@ -35,11 +35,15 @@ class JobOfferController extends Controller
 
     public function store(StoreJobOfferRequest $request)
     {
-        $validatedData = $request->validated();
+        $data = $request->validated();
+        $data['created_by_user_id'] = auth()->id();
 
-        $validatedData['created_by_user_id'] = auth()->id();
+        $jobOffer = JobOffer::create($data);
 
-        JobOffer::create($validatedData);
+        if ($request->hasFile('image')) {
+            $jobOffer->addMediaFromRequest('image')
+                ->toMediaCollection('job_offers', 'media');
+        }
 
         return redirect()->route('ceo.job_offers.index')->with('success', 'Job offer created successfully.');
     }

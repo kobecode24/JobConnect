@@ -27,6 +27,7 @@ class StoreCompanyRequest extends FormRequest
             'description' => 'required|string',
             'city_id' => 'required|exists:cities,id',
             'rh_user_id' => 'required|exists:users,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
         ];
     }
 }

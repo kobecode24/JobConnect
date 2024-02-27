@@ -26,6 +26,7 @@ class StoreJobOfferRequest extends FormRequest
             'description' => 'required|string',
             'salary' => 'nullable|numeric',
             'deadline' => 'required|date|after:today',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
         ];
     }
 }

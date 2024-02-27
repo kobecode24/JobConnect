@@ -37,7 +37,14 @@ class JobOfferController extends Controller
     {
         $data = $request->validated();
         $data['created_by_user_id'] = auth()->id();
-        JobOffer::create($data);
+
+        $jobOffer = JobOffer::create($data);
+
+        if ($request->hasFile('image')) {
+            $jobOffer->addMediaFromRequest('image')
+                ->toMediaCollection('job_offers', 'media');
+        }
+
         return redirect()->route('hr.job_offers.index')->with('success', 'Job offer created successfully.');
     }
 
