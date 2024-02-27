@@ -7,6 +7,8 @@ use App\Http\Controllers\admin\UserController as AdminUserController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\ceo\CeoController;
 use App\Http\Controllers\ceo\HrController;
+use App\Http\Controllers\ceo\JobOfferController as CeoJobOfferController;
+use App\Http\Controllers\hr\JobOfferController as HrJobOfferController;
 use App\Http\Controllers\user\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,7 +48,13 @@ Route::middleware(['auth', 'dashboard'])->group(function () {
 });
 
 
+Route::prefix('ceo')->middleware(['is_ceo'])->group(function () {
+    Route::resource('job_offers', CeoJobOfferController::class);
+});
 
+Route::prefix('hr')->middleware(['is_hr'])->group(function () {
+    Route::resource('job_offers', HrJobOfferController::class);
+});
 
 
 
