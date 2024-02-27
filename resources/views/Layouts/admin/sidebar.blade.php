@@ -75,7 +75,7 @@
                 ></path>
             </svg>
 
-            <span class="mx-3">UI Elements</span>
+            <span class="mx-3">Job Offers</span>
         </a>
 
         <a

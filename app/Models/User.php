@@ -74,6 +74,12 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Application::class);
     }
 
+    public function appliedOffers()
+    {
+        return $this->belongsToMany(JobOffer::class, 'job_offer_user', 'user_id', 'job_offer_id')->withTimestamps();
+    }
+
+
     public function managedCompanyAsCeo() {
         return $this->hasOne(Company::class, 'ceo_user_id');
     }
@@ -82,13 +88,27 @@ class User extends Authenticatable implements HasMedia
         return $this->hasOne(Company::class, 'rh_user_id');
     }
 
-    public function managedCompany()
-    {
-        return $this->hasOne(Company::class, 'ceo_user_id');
+    public function isCeoOrHrOfCompany() {
+        return $this->managedCompanyAsCeo()->exists() || $this->managedCompanyAsHr()->exists();
     }
 
-    public function rhManagedCompany()
+    public function isCeo()
     {
-        return $this->hasOne(Company::class, 'rh_user_id');
+        return $this->roles->contains('name', 'CEO');
     }
+
+    public function isHr()
+    {
+        return $this->roles->contains('name', 'HR');
+    }
+
+    public function isCandidate() {
+        return $this->roles->contains('name', 'User');
+    }
+
+    public function isAdmin()
+    {
+        return $this->roles->contains('name', 'Admin');
+    }
+
 }

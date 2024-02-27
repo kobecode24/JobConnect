@@ -8,7 +8,9 @@ use App\Http\Requests\UpdateCompanyRequest;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
@@ -19,7 +21,7 @@ class CompanyController extends Controller
     {
         $companies = Company::latest()->get();
 
-        return view('ceo.companies.index', compact('companies'));
+        return view('ceo.company.index', compact('companies'));
     }
 
     /**
@@ -27,10 +29,16 @@ class CompanyController extends Controller
      */
     public function create()
     {
+
         $categories = Category::latest()->get();
         $cities = City::latest()->get();
+        $hrs = User::whereHas('roles', function ($query) {
+            $query->where('name', 'HR');
+        })
+            ->latest()
+            ->get();
 
-        return view('ceo.companies.create', compact('categories', 'cities'));
+        return view('ceo.company.create', compact('categories', 'cities', 'hrs'));
     }
 
     /**
@@ -38,11 +46,14 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        $company = Company::create($request->validated());
+        $request['founded'] = now();
+        $request['ceo_user_id'] = Auth::id();
 
-        $company->categories()->attach($request->category_id);
+        $company = Company::create($request->all());
 
-        return redirect()->route('companies')->with('success', 'Congratulation Your Company has been created successfully');
+        $company->categories()->sync($request->input('category_id', []));
+
+        return redirect()->route('home.index')->with('success', 'Congratulation Your Company has been created successfully');
     }
 
     /**
