@@ -44,7 +44,6 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    use Illuminate\Support\Facades\Auth;
 
     public function store(StoreCompanyRequest $request)
     {

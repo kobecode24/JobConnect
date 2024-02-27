@@ -110,6 +110,10 @@ Route::prefix('hr')->middleware(['is_hr'])->group(function () {
 
 
 
+Route::prefix('admin')->middleware(['is_admin'])->group(function () {
+    Route::resource('category', CategoryController::class);
+});
 Route::resource('categories', CategoryController::class);
 Route::resource('cities', CityController::class);
 Route::resource('skills', SkillController::class);
+
