@@ -146,7 +146,6 @@
                                 <label class="block" for="description">Description (Optional)</label>
                                 <textarea rows="4" placeholder="Category Description" name="description" id="description" class="mt-2 p-2 bg-gray-100 rounded-md w-full"></textarea>
                             </div>
-                            <!-- Removed fields specific to job offers (salary, deadline, image) -->
                             <div class="flex justify-end mt-6">
                                 <button type="submit" class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Create</button>
                             </div>
