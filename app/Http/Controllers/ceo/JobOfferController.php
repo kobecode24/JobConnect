@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ceo;
 
+use App\Http\Controllers\Controller;
 use App\Models\JobOffer;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreJobOfferRequest;
@@ -11,7 +12,13 @@ class JobOfferController extends Controller
 {
     public function index()
     {
-        $jobOffers = JobOffer::all();
+        $user = auth()->user();
+
+        if ($user->isCeoOrHrOfCompany()) {
+            $jobOffers = JobOffer::where('created_by_user_id', $user->id)->get();
+        } else {
+            $jobOffers = collect();
+        }
         return view('ceo.job_offers.index', compact('jobOffers'));
     }
 
@@ -22,8 +29,13 @@ class JobOfferController extends Controller
 
     public function store(StoreJobOfferRequest $request)
     {
-        JobOffer::create($request->validated());
-        return redirect()->route('job_offers.index')->with('success', 'Job offer created successfully.');
+        $validatedData = $request->validated();
+
+        $validatedData['created_by_user_id'] = auth()->id();
+
+        JobOffer::create($validatedData);
+
+        return redirect()->route('ceo.job_offers.index')->with('success', 'Job offer created successfully.');
     }
 
     public function show(JobOffer $jobOffer)
@@ -39,12 +51,12 @@ class JobOfferController extends Controller
     public function update(UpdateJobOfferRequest $request, JobOffer $jobOffer)
     {
         $jobOffer->update($request->validated());
-        return redirect()->route('job_offers.index')->with('success', 'Job offer updated successfully.');
+        return redirect()->route('ceo.job_offers.index')->with('success', 'Job offer updated successfully.');
     }
 
     public function destroy(JobOffer $jobOffer)
     {
         $jobOffer->delete();
-        return redirect()->route('job_offers.index')->with('success', 'Job offer deleted successfully.');
+        return redirect()->route('ceo.job_offers.index')->with('success', 'Job offer deleted successfully.');
     }
 }
