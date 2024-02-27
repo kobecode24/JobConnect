@@ -49,6 +49,14 @@ class UserController extends Controller
     {
         $user = User::findOrFail($request->id);
 
+        $user->update($request->except(['image']));
+
+        if ($request->hasFile('image')) {
+            $user->clearMediaCollection('images');
+            $user->addMediaFromRequest('image')
+                ->toMediaCollection('images', 'media');
+        }
+
         $user->update($request->all());
 
         return redirect()->route('users')->with('success', 'User updated successfully');
