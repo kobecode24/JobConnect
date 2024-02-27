@@ -9,11 +9,12 @@
     </div>
     <div class="navbar-links">
         <ul>
-            <li><a href="#"><img src="{{ asset('img/home.png') }}" alt="home"> <span>Home</span></a></li>
+            <li><a href="{{ route('home.index') }}"><img src="{{ asset('img/home.png') }}" alt="home"> <span>Home</span></a></li>
             <li><a href="#"><img src="{{ asset('img/network.png') }}" alt="network"> <span>Network</span></a></li>
             <li><a href="#"><img src="{{ asset('img/jobs.png') }}" alt="Job"> <span>Jobs</span></a></li>
             <li><a href="#"><img src="{{ asset('img/message.png') }}" alt="Message"> <span>Messaging</span></a></li>
             <li><a href="#"><img src="{{ asset('img/notification.png') }}" alt="notification"> <span>Notifications</span></a></li>
+            <li><a href="{{ route('company.create') }}"><img src="{{ asset('img/jobs.png') }}" alt="Companies"> <span>Create Your Company</span></a></li>
         </ul>
     </div>
     <div class="navbar-right">
