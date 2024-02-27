@@ -6,7 +6,9 @@ use App\Http\Controllers\admin\SkillController;
 use App\Http\Controllers\admin\UserController as AdminUserController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\ceo\CeoController;
+use App\Http\Controllers\ceo\CompanyController;
 use App\Http\Controllers\ceo\HrController;
+use App\Http\Controllers\user\ApplicationController;
 use App\Http\Controllers\ceo\JobOfferController as CeoJobOfferController;
 use App\Http\Controllers\hr\JobOfferController as HrJobOfferController;
 use App\Http\Controllers\user\UserController;
@@ -47,6 +49,14 @@ Route::middleware(['auth', 'dashboard'])->group(function () {
     Route::get('/profile', [App\Http\Controllers\auth\AuthController::class, 'profile'])->name('profile');
 });
 
+Route::middleware('auth')->group(function () {
+
+    Route::resource('home', UserController::class);
+    Route::resource('company', CompanyController::class);
+    Route::resource('application', ApplicationController::class);
+
+    Route::get('/profile', [App\Http\Controllers\auth\AuthController::class, 'profile'])->name('profile');
+});
 
 Route::prefix('ceo')->middleware(['is_ceo'])->group(function () {
     Route::resource('job_offers', CeoJobOfferController::class)

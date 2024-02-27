@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreCompanyRequest extends FormRequest
 {
@@ -24,9 +25,7 @@ class StoreCompanyRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'founded' => 'required|date',
             'city_id' => 'required|exists:cities,id',
-            'ceo_user_id' => 'required|exists:users,id',
             'rh_user_id' => 'required|exists:users,id',
         ];
     }
