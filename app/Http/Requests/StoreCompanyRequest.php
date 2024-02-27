@@ -26,7 +26,6 @@ class StoreCompanyRequest extends FormRequest
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'city_id' => 'required|exists:cities,id',
-            'category_id' => 'required|exists:categories,id',
             'rh_user_id' => 'required|exists:users,id',
         ];
     }

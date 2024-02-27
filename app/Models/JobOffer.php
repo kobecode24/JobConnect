@@ -21,17 +21,23 @@ class JobOffer extends Model
     protected $casts = [
         'deadline' => 'date',
     ];
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
-    }
 
     public function applications()
     {
         return $this->hasMany(Application::class);
     }
 
+    public function applicants()
+    {
+        return $this->belongsToMany(User::class, 'job_offer_user', 'job_offer_id', 'user_id')->withTimestamps();
+    }
+
     public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by_user_id');
+    }
+
+    public function user()
     {
         return $this->belongsTo(User::class, 'created_by_user_id');
     }

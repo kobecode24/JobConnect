@@ -47,7 +47,7 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         $request['founded'] = now();
-        $request['ceo_user_id']= Auth::id();
+        $request['ceo_user_id'] = Auth::id();
 
         $company = Company::create($request->all());
 
