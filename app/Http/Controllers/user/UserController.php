@@ -4,11 +4,23 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Company;
+use App\Models\JobOffer;
 use Illuminate\Http\Request;
 use App\Models\User;
 
 class UserController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $company = Company::latest()->get();
+        $jobOffers = JobOffer::latest()->get();
+        return view('users.index', compact(['company', 'jobOffers']));
+    }
 
     /**
      * Display the specified resource.
