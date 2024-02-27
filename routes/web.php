@@ -7,6 +7,8 @@ use App\Http\Controllers\admin\UserController as AdminUserController;
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\ceo\CeoController;
 use App\Http\Controllers\ceo\HrController;
+use App\Http\Controllers\ceo\JobOfferController as CeoJobOfferController;
+use App\Http\Controllers\hr\JobOfferController as HrJobOfferController;
 use App\Http\Controllers\user\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +48,31 @@ Route::middleware(['auth', 'dashboard'])->group(function () {
 });
 
 
+Route::prefix('ceo')->middleware(['is_ceo'])->group(function () {
+    Route::resource('job_offers', CeoJobOfferController::class)
+        ->names([
+            'index' => 'ceo.job_offers.index',
+            'create' => 'ceo.job_offers.create',
+            'store' => 'ceo.job_offers.store',
+            'show' => 'ceo.job_offers.show',
+            'edit' => 'ceo.job_offers.edit',
+            'update' => 'ceo.job_offers.update',
+            'destroy' => 'ceo.job_offers.destroy',
+        ]);
+});
+
+Route::prefix('hr')->middleware(['is_hr'])->group(function () {
+    Route::resource('job_offers', HrJobOfferController::class)
+        ->names([
+            'index' => 'hr.job_offers.index',
+            'create' => 'hr.job_offers.create',
+            'store' => 'hr.job_offers.store',
+            'show' => 'hr.job_offers.show',
+            'edit' => 'hr.job_offers.edit',
+            'update' => 'hr.job_offers.update',
+            'destroy' => 'hr.job_offers.destroy',
+        ]);
+});
 
 
 
