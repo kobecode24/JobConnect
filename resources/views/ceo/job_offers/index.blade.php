@@ -152,6 +152,9 @@
                                         <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
                                     </form>
                                 </td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    {{ $company->name ?? 'No Company' }}
+                                </td>
                             </tr>
                         @endforeach
                     </table>
