@@ -47,39 +47,26 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request)
-    {
-        $hr = User::findOrFail($request);
-
-        $skills = Skill::latest()->get();
-
-        return view('ceo.applications.edit', compact('application', 'skills'));
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateApplicationRequest $request)
+    public function update(UpdateApplicationRequest $request, Application $application)
     {
-        $hr = User::findOrFail($request);
+        $request['user_id'] = Auth::id();
+        $request['status'] = '1';
 
-        $hr->update($request->validated());
-        $hr->skills()->sync($request->skill_id);
+        $application->update($request->all());
 
-        return redirect()->route('applications')->with('success', 'HR updated successfully');
+        return redirect()->route('home.index')->with('success', 'Contgratulation Your a member of the company');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(Application $application)
     {
-        $hr = User::findOrFail($request);
 
-        $hr->delete();
+        $application->delete();
 
-        return redirect()->route('applications')->with('success', 'Application deleted successfully');
+        return redirect()->route('home.index')->with('success', 'Application deleted successfully');
     }
 }

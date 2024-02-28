@@ -14,3 +14,4 @@
         </div>
     </div>
 </div>
+<script src="{{ mix('resources/js/file.js') }}"></script>

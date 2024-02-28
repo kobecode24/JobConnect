@@ -4,10 +4,15 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Application;
 use App\Models\Company;
 use App\Models\JobOffer;
+use App\Models\Skill;
 use Illuminate\Http\Request;
-use App\Models\User, Carbon\Carbon;;
+use App\Models\User, Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
+;
 
 class UserController extends Controller
 {
@@ -18,7 +23,9 @@ class UserController extends Controller
     public function index()
     {
         $jobOffers = JobOffer::latest()->get();
-        return view('users.index', compact('jobOffers'));
+        $applications = Application::where('user_id', Auth::id())->latest()->get();
+
+        return view('users.index', compact(['jobOffers', 'applications']));
     }
 
     /**
@@ -26,9 +33,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $skills = $user->skills;
+        $userSkills = $user->skills;
 
-        return view('users.profile', compact(['user', 'skills']));
+        $skills = Skill::latest()->get();
+
+        return view('users.profile', compact(['user', 'userSkills', 'skills']));
     }
 
     /**

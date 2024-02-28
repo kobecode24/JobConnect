@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ceo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
+use App\Models\Application;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Company;
@@ -32,13 +33,14 @@ class CompanyController extends Controller
 
         $categories = Category::latest()->get();
         $cities = City::latest()->get();
+        $applications = Application::latest()->get();
         $hrs = User::whereHas('roles', function ($query) {
             $query->where('name', 'HR');
         })
             ->latest()
             ->get();
 
-        return view('ceo.company.create', compact('categories', 'cities', 'hrs'));
+        return view('ceo.company.create', compact('categories', 'cities', 'hrs', 'applications'));
     }
 
     /**
