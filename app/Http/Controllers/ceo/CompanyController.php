@@ -46,12 +46,12 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        $request['founded'] = now();
         $request['ceo_user_id'] = Auth::id();
-
-        $company = Company::create($request->all());
-
+        $user = Auth::user();
+        
+        $company = Company::create(array_merge($request->all(), ['founded' => now()]));
         $company->categories()->sync($request->input('category_id', []));
+        $user->roles()->attach(3);
 
         return redirect()->route('home.index')->with('success', 'Congratulation Your Company has been created successfully');
     }

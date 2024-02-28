@@ -15,11 +15,16 @@ class DashboardMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $userRole = auth()->user()->roles->first()->name;
+        if (auth()->check()) {
+            $userRoles = auth()->user()->roles->pluck('name');
 
-        $dashboardRoles = ['Admin', 'CEO', 'HR'];
-        if (auth()->check() && in_array($userRole, $dashboardRoles)) {
-            return $next($request);
+            $dashboardRoles = ['Admin', 'CEO', 'HR'];
+
+            $hasDashboardAccess = $userRoles->intersect($dashboardRoles)->isNotEmpty();
+
+            if ($hasDashboardAccess) {
+                return $next($request);
+            }
         }
 
         return redirect('/login');

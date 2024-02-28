@@ -53,7 +53,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('home', UserController::class);
     Route::resource('company', CompanyController::class);
-    Route::resource('application', ApplicationController::class);
+    Route::resource('applications', ApplicationController::class);
+    Route::resource('users', UserController::class);
 
     Route::get('/profile', [App\Http\Controllers\auth\AuthController::class, 'profile'])->name('profile');
 });
