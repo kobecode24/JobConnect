@@ -15,12 +15,12 @@ class Application extends Model
         'status',
     ];
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function job_offers()
+    public function job_offer()
     {
         return $this->belongsTo(JobOffer::class);
     }

@@ -1,4 +1,4 @@
-@extends('layouts.ceo.app')
+@extends('layouts.rh.app')
 
 
 @section('contents')
@@ -120,7 +120,7 @@
 
         <div class="flex flex-col mt-8">
             <div class="mt-4 mb-4">
-                <a href="{{ route('ceo.job_offers.create') }}" class="px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">Create New Job Offer</a>
+                <a href="{{ route('hr.job_offers.create') }}" class="px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">Create New Job Offer</a>
             </div>
             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                 <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
@@ -128,32 +128,31 @@
                         <thead>
                         <tr>
                             <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Name</th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Description</th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Salary</th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Deadline</th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Created By</th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Action</th>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $jobOffer->user->company->name ?? 'N/A' }}</td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right text-sm leading-5 font-medium">
+                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Email</th>
+                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Role</th>
+                            <th class="px-10 py-3 ml-80 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Actions</th>
                         </tr>
                         </thead>
-                        @foreach ($jobOffers as $jobOffer)
+                        <tbody>
+                        @foreach ($employees as $employee)
                             <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $jobOffer->name }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $jobOffer->description }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $jobOffer->salary }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $jobOffer->deadline }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $jobOffer->user->name ?? 'N/A' }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $employee->name }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $employee->email }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    @foreach ($employee->roles as $role)
+                                        <span>{{ $role->name }}</span>
+                                    @endforeach
+                                </td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right text-sm leading-5 font-medium">
-                                    <a href="{{ route('ceo.job_offers.edit', $jobOffer->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    <form action="{{ route('ceo.job_offers.destroy', $jobOffer->id) }}" method="POST" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                                    </form>
+                                    <div class="flex justify-end space-x-2">
+                                        <a href="{{ route('users.show', $employee->id) }}" class="inline-flex items-center px-3 py-1 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded">
+                                            View
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>

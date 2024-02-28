@@ -12,7 +12,11 @@ use App\Http\Controllers\user\ApplicationController;
 use App\Http\Controllers\ceo\JobOfferController as CeoJobOfferController;
 use App\Http\Controllers\hr\JobOfferController as HrJobOfferController;
 use App\Http\Controllers\user\UserController;
+use App\Http\Controllers\hr\UserController as HrUserController;
+use App\Http\Controllers\ceo\UserController as CeoUserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ceo\ApplicationController as CeoApplicationController;
+use App\Http\Controllers\hr\ApplicationController as HrApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [App\Http\Controllers\auth\AuthController::class, 'profile'])->name('profile');
 });
 
-Route::prefix('ceo')->middleware(['is_ceo'])->group(function () {
+Route::prefix('ceo')->middleware(['auth','is_ceo'])->group(function () {
     Route::resource('job_offers', CeoJobOfferController::class)
         ->names([
             'index' => 'ceo.job_offers.index',
@@ -70,9 +74,24 @@ Route::prefix('ceo')->middleware(['is_ceo'])->group(function () {
             'update' => 'ceo.job_offers.update',
             'destroy' => 'ceo.job_offers.destroy',
         ]);
+    Route::resource('employees', CeoUserController::class)
+        ->names([
+            'index' => 'ceo.employees.index',
+            'destroy' => 'ceo.employees.destroy',
+        ]);
+    Route::resource('applications', CeoApplicationController::class)
+        ->names([
+            'index' => 'ceo.applications.index',
+            'destroy' => 'ceo.applications.destroy',
+        ]);
+    Route::patch('ceo/applications/{application}/accept', [CeoApplicationController::class, 'accept'])
+        ->name('ceo.applications.accept');
+
+    Route::patch('ceo/applications/{application}/reject', [CeoApplicationController::class, 'reject'])
+        ->name('ceo.applications.reject');
 });
 
-Route::prefix('hr')->middleware(['is_hr'])->group(function () {
+Route::prefix('hr')->middleware(['auth','is_hr'])->group(function () {
     Route::resource('job_offers', HrJobOfferController::class)
         ->names([
             'index' => 'hr.job_offers.index',
@@ -83,6 +102,22 @@ Route::prefix('hr')->middleware(['is_hr'])->group(function () {
             'update' => 'hr.job_offers.update',
             'destroy' => 'hr.job_offers.destroy',
         ]);
+    Route::resource('employees', HrUserController::class)
+        ->names([
+            'index' => 'hr.employees.index',
+        ]);
+
+    Route::resource('applications', HrApplicationController::class)
+        ->names([
+            'index' => 'hr.employees.index',
+            'destroy' => 'hr.employees.destroy',
+        ]);
+    Route::patch('hr/applications/{application}/accept', [HrApplicationController::class, 'accept'])
+        ->name('hr.applications.accept');
+    Route::patch('hr/applications/{application}/reject', [HrApplicationController::class, 'reject'])
+        ->name('hr.applications.reject');
+
+
 });
 
 
@@ -111,7 +146,7 @@ Route::prefix('hr')->middleware(['is_hr'])->group(function () {
 
 
 
-Route::prefix('admin')->middleware(['is_admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth','is_admin'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('cities', CityController::class);
     Route::resource('skills', SkillController::class);
