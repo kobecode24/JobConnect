@@ -30,6 +30,7 @@ class ApplicationController extends Controller
      */
     public function store(StoreApplicationRequest $request)
     {
+
         $request['user_id'] = Auth::id();
         $application = Application::create($request->all());
 
@@ -51,8 +52,9 @@ class ApplicationController extends Controller
      */
     public function update(UpdateApplicationRequest $request, Application $application)
     {
+        // dd('hh');
         $request['user_id'] = Auth::id();
-        $request['status'] = '1';
+        $request['status'] = '2';
 
         $application->update($request->all());
 
@@ -68,5 +70,25 @@ class ApplicationController extends Controller
         $application->delete();
 
         return redirect()->route('home.index')->with('success', 'Application deleted successfully');
+    }
+
+    public function accept($id)
+    {
+        $application = Application::findOrFail($id);
+        $application->status = '2';
+        $application->save();
+
+
+        $jobOfferCreatorId = $application->job_offer->created_by_user_id;
+
+        $jobOfferCreator = User::findOrFail($jobOfferCreatorId);
+
+        $companyId = $jobOfferCreator->company_id;
+
+        $user = Auth::user();
+        $user->company_id = $companyId;
+        $user->save();
+
+        return redirect()->route('home.index')->with('success', 'Application accepted successfully.');
     }
 }

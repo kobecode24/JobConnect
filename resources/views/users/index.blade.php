@@ -25,7 +25,7 @@
         @foreach($jobOffers as $jobOffer)
             <div class="post-container">
                 <div class="profile-post">
-                    <img src="{{ asset('img/user-3.png') }}" alt="">
+                    <img src="{{ asset('img/user-2.png') }}" alt="">
                     <div class="prop-detail">
                         <h3>{{ $jobOffer->creator->name }}</h3>
                         <p>{{ $jobOffer->creator->description }}</p>
@@ -74,7 +74,7 @@
                                         </button>
                                     </div>
                                     <!-- Modal body -->
-                                    <form class="p-4 md:p-5" action="{{ route('applications.store') }}" method="POST" enctype="multipart/form-data">
+                                    <form class="p-4 md:p-5" action="{{ route('jobRequest.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="grid gap-4 mb-4 grid-cols-2">
                                             <div class="col-span-2">

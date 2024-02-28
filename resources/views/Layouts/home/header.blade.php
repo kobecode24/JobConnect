@@ -38,15 +38,15 @@
                             <div class="flex justify-between">
                                 <div class="text-xs text-blue-600 dark:text-blue-500">1 min ago</div>
                                 <div class="flex">
-                                    <form action="{{ route('applications.destroy', $application->id) }}" method="POST" class="mx-3">
+                                    <form action="{{ route('jobRequest.destroy', $application->id) }}" method="POST" class="mx-3">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-xs text-red-600">Reject</button>
                                     </form>
 
-                                    <form action="{{ route('applications.update', $application->id) }}" method="POST">
+                                    <form action="{{ route('jobRequest.accept', $application->id) }}" method="POST">
                                         @csrf
-                                        @method('PUT')
+                                        @method('patch')
                                         <input type="hidden" name="job_offer_id" value="{{$application->job_offer->id}}">
                                         <button type="submit" class="text-xs text-blue-600">Accept</button>
                                     </form>
