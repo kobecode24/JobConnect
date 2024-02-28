@@ -109,8 +109,8 @@ Route::prefix('hr')->middleware(['auth','is_hr'])->group(function () {
 
     Route::resource('applications', HrApplicationController::class)
         ->names([
-            'index' => 'hr.employees.index',
-            'destroy' => 'hr.employees.destroy',
+            'index' => 'hr.applications.index',
+            'destroy' => 'hr.applications.destroy',
         ]);
     Route::patch('hr/applications/{application}/accept', [HrApplicationController::class, 'accept'])
         ->name('hr.applications.accept');

@@ -65,15 +65,15 @@
         </a>
 
         <a
-            class="flex items-center px-6 py-2 mt-4 {{ request()->is('forms*') ? 'text-gray-100 bg-gray-700 bg-opacity-25' : 'text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100' }}"
-            href="{{--{{ route('forms.index') }}--}}"
+            class="flex items-center px-6 py-2 mt-4 {{ request()->is('hr/applications') ? 'text-gray-100 bg-gray-700 bg-opacity-25' : 'text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100' }}"
+            href="{{ route('hr.applications.index') }}"
         >
             <!-- SVG for Forms -->
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <!-- SVG path for Forms -->
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
-            <span class="mx-3">Forms</span>
+            <span class="mx-3">Applications</span>
         </a>
     </nav>
 

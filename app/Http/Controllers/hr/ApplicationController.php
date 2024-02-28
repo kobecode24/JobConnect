@@ -21,7 +21,7 @@ class ApplicationController extends Controller
 
         $applications = Application::latest()->get();
 
-        return view('ceo.applications.index', compact('applications'));
+        return view('rh.applications.index', compact('applications'));
     }
 
     /**
@@ -31,7 +31,7 @@ class ApplicationController extends Controller
     {
         $skills = Skill::latest()->get();
 
-        return view('ceo.applications.create', compact('skills'));
+        return view('hr.applications.create', compact('skills'));
     }
 
     /**
@@ -56,20 +56,13 @@ class ApplicationController extends Controller
         $application = User::findOrFail($request);
 
 
-        return view('ceo.applications.show', compact('application', 'skills'));
+        return view('hr.applications.show', compact('application', 'skills'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
-    {
-        $hr = User::findOrFail($request);
 
-        $skills = Skill::latest()->get();
-
-        return view('ceo.applications.edit', compact('application', 'skills'));
-    }
 
     /**
      * Update the specified resource in storage.
@@ -94,5 +87,23 @@ class ApplicationController extends Controller
         $hr->delete();
 
         return redirect()->route('applications')->with('success', 'Application deleted successfully');
+    }
+
+    public function accept($id)
+    {
+        $application = Application::findOrFail($id);
+        $application->status = '3';
+        $application->save();
+
+        return redirect()->route('hr.applications.index')->with('success', 'Application accepted successfully.');
+    }
+
+    public function reject($id)
+    {
+        $application = Application::findOrFail($id);
+        $application->status = '4';
+        $application->save();
+
+        return redirect()->route('hr.applications.index')->with('success', 'Application rejected successfully.');
     }
 }
