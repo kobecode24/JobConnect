@@ -44,26 +44,19 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-
     public function store(StoreCompanyRequest $request)
     {
-        $validated = $request->validated();
+        $request['founded'] = now();
+        $request['ceo_user_id'] = Auth::id();
 
-        $validated['founded'] = now();
-        $validated['ceo_user_id'] = Auth::id();
+        $company = Company::create($request->all());
 
-        $company = Company::create($validated);
-
+        $user = Auth::user();
         $company->categories()->sync($request->input('category_id', []));
+        $user->roles()->attach(3);
 
-        if ($request->hasFile('image')) {
-            $company->addMediaFromRequest('image')
-                ->toMediaCollection('companies', 'media');
-        }
-
-        return redirect()->route('home.index')->with('success', 'Congratulations! Your company has been created successfully.');
+        return redirect()->route('home.index')->with('success', 'Congratulation Your Company has been created successfully');
     }
-
 
     /**
      * Display the specified resource.

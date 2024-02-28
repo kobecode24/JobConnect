@@ -7,7 +7,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\Company;
 use App\Models\JobOffer;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\User, Carbon\Carbon;;
 
 class UserController extends Controller
 {
@@ -17,19 +17,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        $company = Company::latest()->get();
         $jobOffers = JobOffer::latest()->get();
-        return view('users.index', compact(['company', 'jobOffers']));
+        return view('users.index', compact('jobOffers'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show(User $user)
     {
-        $user = User::findOrFail($request);
+        $skills = $user->skills;
 
-        return view('users.show', compact('user'));
+        return view('users.profile', compact(['user', 'skills']));
     }
 
     /**

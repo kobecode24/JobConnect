@@ -26,13 +26,13 @@
             <div class="user-img">
                 <img src="{{ asset('img/user-1.png') }}" alt="">
                 <h3>Rayan Walton</h3>
-                <a href="{{ url('./profile.html') }}"><span>See your profile</span></a>
+                <a href="{{ route('users.show', Auth::id() )}}"><span>See your profile</span></a>
             </div>
             <a href="#"><img src="{{ asset('img/feedback.png') }}" alt=""><span>Give feedback</span><small>></small></a>
             <a href="#"><img src="{{ asset('img/setting.png') }}" alt=""><span>Setting & Privacy</span><small>></small></a>
             <a href="#"><img src="{{ asset('img/help.png') }}" alt=""><span>Help & Support</span><small>></small></a>
             <a href="#"><img src="{{ asset('img/display.png') }}" alt=""><span>Display & Accessibility</span><small>></small></a>
-            <a href="#"><img src="{{ asset('img/logout.png') }}" alt=""><span>Logout</span><small>></small></a>
+            <a href="{{route('logout')}}"><img src="{{ asset('img/logout.png') }}" alt=""><span>Logout</span><small>></small></a>
         </div>
     </div>
 </nav>

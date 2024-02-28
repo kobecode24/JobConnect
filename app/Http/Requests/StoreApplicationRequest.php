@@ -22,7 +22,7 @@ class StoreApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'job_offer_id' => 'required',
         ];
     }
 }
