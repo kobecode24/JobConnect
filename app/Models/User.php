@@ -28,6 +28,7 @@ class User extends Authenticatable implements HasMedia
         'description',
         'experience',
         'image',
+        'company_id',
     ];
 
     /**
@@ -67,7 +68,7 @@ class User extends Authenticatable implements HasMedia
 
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class, 'company_id');
     }
 
     public function applications() {

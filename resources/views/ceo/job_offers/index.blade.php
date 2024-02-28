@@ -1,4 +1,4 @@
-@extends('layouts.admin.app')
+@extends('layouts.ceo.app')
 
 
 @section('contents')
@@ -133,13 +133,12 @@
                             <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Deadline</th>
                             <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Created By</th>
                             <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Action</th>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $jobOffer->user->company->name ?? 'N/A' }}</td>
+                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Company</th>
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right text-sm leading-5 font-medium">
                         </tr>
                         </thead>
                         @foreach ($jobOffers as $jobOffer)
                             <tr>
-                                <!-- Job offer data -->
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $jobOffer->name }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $jobOffer->description }}</td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $jobOffer->salary }}</td>
@@ -152,6 +151,9 @@
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
                                     </form>
+                                </td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                    {{ $company->name ?? 'No Company' }}
                                 </td>
                             </tr>
                         @endforeach

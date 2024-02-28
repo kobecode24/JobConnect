@@ -1,4 +1,4 @@
-@extends('layouts.rh.app')
+@extends('layouts.ceo.app')
 
 
 @section('contents')
@@ -117,54 +117,76 @@
                 </div>
             </div>
         </div>
-        <div class="container mx-auto px-6 py-8">
-            <h3 class="text-3xl font-medium text-gray-700">Dashboard</h3>
 
-            <div class="mt-6">
-                @if ($errors->any())
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                        <strong class="font-bold">Holy smokes!</strong>
-                        <span class="block sm:inline">Please check the following errors:</span>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>
-                                    <span class="block sm:inline">{{ $error }}</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                <div class="max-w-lg mx-auto bg-white p-6 rounded-md shadow-md">
-                    <h2 class="text-xl font-medium text-gray-700">Create New Job Offer</h2>
-                    <form action="{{ route('hr.job_offers.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                        <div class="mt-4">
-                            <label class="block" for="name">Job Title</label>
-                            <input type="text" placeholder="Job Title" name="name" id="name" class="mt-2 p-2 bg-gray-100 rounded-md w-full" required>
-                        </div>
-                        <div class="mt-4">
-                            <label class="block" for="description">Description</label>
-                            <textarea rows="4" placeholder="Job Description" name="description" id="description" class="mt-2 p-2 bg-gray-100 rounded-md w-full" required></textarea>
-                        </div>
-                        <div class="mt-4">
-                            <label class="block" for="salary">Salary</label>
-                            <input type="number" placeholder="Salary" name="salary" id="salary" class="mt-2 p-2 bg-gray-100 rounded-md w-full">
-                        </div>
-                        <div class="mt-4">
-                            <label class="block" for="deadline">Deadline</label>
-                            <input type="date" name="deadline" id="deadline" class="mt-2 p-2 bg-gray-100 rounded-md w-full">
-                        </div>
-                        <div class="mt-4">
-                            <label class="block" for="image">Image</label>
-                            <input type="file" name="image" id="image" class="mt-2 p-2 bg-gray-100 rounded-md w-full">
-                        </div>
-                        <div class="flex justify-end mt-6">
-                            <button type="submit" class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Create</button>
-                        </div>
-                    </form>
+        <div class="flex flex-col mt-8">
+            @if ($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Holy smokes!</strong>
+                    <span class="block sm:inline">Please check the following errors:</span>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>
+                                <span class="block sm:inline">{{ $error }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @if (session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Well done!</strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Holy smokes!</strong>
+                    <span class="block sm:inline">{{ session('error') }}</span>
+                </div>
+            @endif
+            <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+                    <table class="min-w-full">
+                        <thead>
+                        <tr>
+                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Applicant Name</th>
+                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Job Title</th>
+                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Application Date</th>
+                            <th class="px-10 py-3 ml-80 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($applications as $application)
+                            @if($application->status == 0)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $application->user ? $application->user->name : 'N/A' }}</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $application->job_offer ? $application->job_offer->name : 'N/A' }}</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $application->created_at->format('Y-m-d') }}</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-right text-sm leading-5 font-medium">
+                                        <div class="flex justify-end space-x-2">
+                                            <form action="{{ route('ceo.applications.accept', $application->id) }}" method="POST" class="inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="inline-flex items-center px-3 py-1 bg-green-500 hover:bg-green-700 text-white font-bold rounded">
+                                                    Accept
+                                                </button>
+                                            </form>
+                                            <form action="{{ route('ceo.applications.reject', $application->id) }}" method="POST" class="inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="inline-flex items-center px-3 py-1 bg-red-500 hover:bg-red-700 text-white font-bold rounded">
+                                                    Reject
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
-
         </div>
+    </div>
 @endsection
