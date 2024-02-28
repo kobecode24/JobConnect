@@ -9,6 +9,7 @@ use App\Models\Application;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
@@ -21,7 +22,7 @@ class ApplicationController extends Controller
 
         $applications = Application::latest()->get();
 
-        return view('ceo.applications.index', compact('applications'));
+        return view('applications.index', compact('applications'));
     }
 
     /**
@@ -29,13 +30,10 @@ class ApplicationController extends Controller
      */
     public function store(StoreApplicationRequest $request)
     {
+        $request['user_id'] = Auth::id();
+        $application = Application::create($request->all());
 
-        $hr = User::create($request->validated());
-
-        $hr->roles()->attach($request->role_id);
-        $hr->skills()->sync($request->input($request->skill_id, []));
-
-        return redirect()->route('applications')->with('success', 'Application added successfully');
+        return redirect()->route('home.index')->with('success', 'Application added successfully');
     }
 
     /**
@@ -45,8 +43,7 @@ class ApplicationController extends Controller
     {
         $application = User::findOrFail($request);
 
-
-        return view('ceo.applications.show', compact('application', 'skills'));
+        return view('home.show', compact('application'));
     }
 
     /**

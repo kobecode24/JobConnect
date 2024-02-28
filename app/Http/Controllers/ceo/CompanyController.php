@@ -51,7 +51,9 @@ class CompanyController extends Controller
 
         $company = Company::create($request->all());
 
+        $user = Auth::user();
         $company->categories()->sync($request->input('category_id', []));
+        $user->roles()->attach(3);
 
         return redirect()->route('home.index')->with('success', 'Congratulation Your Company has been created successfully');
     }

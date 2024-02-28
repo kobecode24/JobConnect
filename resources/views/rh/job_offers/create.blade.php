@@ -120,7 +120,6 @@
         <div class="container mx-auto px-6 py-8">
             <h3 class="text-3xl font-medium text-gray-700">Dashboard</h3>
 
-            <!-- Include this section for creating a new job offer -->
             <div class="mt-6">
                 @if ($errors->any())
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
@@ -137,8 +136,8 @@
                 @endif
                 <div class="max-w-lg mx-auto bg-white p-6 rounded-md shadow-md">
                     <h2 class="text-xl font-medium text-gray-700">Create New Job Offer</h2>
-                    <form action="{{ route('hr.job_offers.store') }}" method="POST">
-                        @csrf
+                    <form action="{{ route('hr.job_offers.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                         <div class="mt-4">
                             <label class="block" for="name">Job Title</label>
                             <input type="text" placeholder="Job Title" name="name" id="name" class="mt-2 p-2 bg-gray-100 rounded-md w-full" required>
@@ -154,6 +153,10 @@
                         <div class="mt-4">
                             <label class="block" for="deadline">Deadline</label>
                             <input type="date" name="deadline" id="deadline" class="mt-2 p-2 bg-gray-100 rounded-md w-full">
+                        </div>
+                        <div class="mt-4">
+                            <label class="block" for="image">Image</label>
+                            <input type="file" name="image" id="image" class="mt-2 p-2 bg-gray-100 rounded-md w-full">
                         </div>
                         <div class="flex justify-end mt-6">
                             <button type="submit" class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Create</button>

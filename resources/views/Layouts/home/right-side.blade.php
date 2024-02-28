@@ -22,8 +22,10 @@
     <div class="sidebar-ad">
         <small>Ad&middot;&middot;&middot; </small>
         <p>Master the 5 principles of web design</p>
-        <img src="{{ asset('img/user-1.png') }}" alt="">
-        <img src="{{ asset('img/mi-logo.png') }}" alt="">
+        <div class="flex  justify-center">
+            <img src="{{ asset('img/user-1.png') }}" alt="">
+            <img src="{{ asset('img/mi-logo.png') }}" alt="">
+        </div>
         <b>Brand and Demand in Xiaomi</b>
         <a href="#" class="learn-btn">Learn More</a>
     </div>
