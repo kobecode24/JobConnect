@@ -57,8 +57,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('home', UserController::class);
     Route::resource('company', CompanyController::class);
-    Route::resource('applications', ApplicationController::class);
+    Route::resource('jobRequest', ApplicationController::class);
     Route::resource('users', UserController::class);
+    Route::patch('user/applications/{application}/accept', [ApplicationController::class, 'accept'])
+    ->name('jobRequest.accept');
 
     Route::get('/profile', [App\Http\Controllers\auth\AuthController::class, 'profile'])->name('profile');
 });

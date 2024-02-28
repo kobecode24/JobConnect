@@ -12,8 +12,6 @@ use Illuminate\Http\Request;
 use App\Models\User, Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-;
-
 class UserController extends Controller
 {
 
@@ -23,7 +21,10 @@ class UserController extends Controller
     public function index()
     {
         $jobOffers = JobOffer::latest()->get();
-        $applications = Application::where('user_id', Auth::id())->latest()->get();
+        $applications = Application::where([
+            'user_id' => Auth::id(),
+            'status' => '3',
+        ])->latest()->get();
 
         return view('users.index', compact(['jobOffers', 'applications']));
     }

@@ -28,6 +28,7 @@ class User extends Authenticatable implements HasMedia
         'description',
         'experience',
         'image',
+        'company_id',
     ];
 
     /**
